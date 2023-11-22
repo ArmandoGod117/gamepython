@@ -11,6 +11,12 @@ EUSE = pygame.transform.scale(pygame.image.load("img/youwin.png"), (1000, 700))
 
 IMG_SALIR = pygame.transform.scale(pygame.image.load("img2/btonsalida3.png"), (110, 90))
 
+#Música de fondo y control de volumen
+pygame.mixer.music.load('musica/musicaganar.mp3')
+volumen = 0.5  
+pygame.mixer.music.set_volume(volumen)
+pygame.mixer.music.play(-1)
+
 def obtener_fuente(tamaño):
     return pygame.font.Font("img/Dead Kansas.ttf", tamaño)
 

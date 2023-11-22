@@ -15,11 +15,11 @@ EUSE = pygame.transform.scale(pygame.image.load("img/controles.png"), (1000, 700
 # Cargar imágenes de botones
 IMG_SALIR = pygame.transform.scale(pygame.image.load("img2/btonrojo.png"), (100, 80))
 
-# Música de fondo y control de volumen
-#pygame.mixer.music.load('musica/nivel1.mp3')
-#volumen = 0.5  
-#pygame.mixer.music.set_volume(volumen)
-#pygame.mixer.music.play(-1)
+ #Música de fondo y control de volumen
+pygame.mixer.music.load('musica/musicafondo.mp3')
+volumen = 0.5  
+pygame.mixer.music.set_volume(volumen)
+pygame.mixer.music.play(-1)
 
 def obtener_fuente(tamaño):
     return pygame.font.Font("img/Dead Kansas.ttf", tamaño)

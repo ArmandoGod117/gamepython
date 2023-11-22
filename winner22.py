@@ -12,6 +12,12 @@ EUSE = pygame.transform.scale(pygame.image.load("img/youwin.png"), (1000, 700))
 IMG_SALIR = pygame.transform.scale(pygame.image.load("img2/btonsalida3.png"), (100, 80))
 IMG_NIVEL33 = pygame.transform.scale(pygame.image.load("img2/siguiente2.png"), (100, 80))
 
+#Música de fondo y control de volumen
+pygame.mixer.music.load('musica/musicaganar.mp3')
+volumen = 0.5  
+pygame.mixer.music.set_volume(volumen)
+pygame.mixer.music.play(-1)
+
 def obtener_fuente(tamaño):
     return pygame.font.Font("img/Dead Kansas.ttf", tamaño)
 
@@ -42,7 +48,7 @@ def winner_22():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if NIVEL33.checkForInput(MOUSE_POS):
-                    from nivel33 import nivel_33
+                    from nivel33_español import nivel_33
                     nivel_33()
                 elif BOTON_SALIR.checkForInput(MOUSE_POS):
                     from dificil import dificil1

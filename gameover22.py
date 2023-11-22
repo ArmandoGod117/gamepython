@@ -12,6 +12,12 @@ EUSE = pygame.transform.scale(pygame.image.load("img/perdiste.png"), (1000, 700)
 IMG_NIVEL22 = pygame.transform.scale(pygame.image.load("img2/Reiniciar.png"), (100, 80))
 IMG_SALIR = pygame.transform.scale(pygame.image.load("img2/btonsalida3.png"), (100, 80))
 
+#Música de fondo y control de volumen
+pygame.mixer.music.load('musica/musicaperder.mp3')
+volumen = 0.5  
+pygame.mixer.music.set_volume(volumen)
+pygame.mixer.music.play(-1)
+
 def obtener_fuente(tamaño):
     return pygame.font.Font("img/Dead Kansas.ttf", tamaño)
 
@@ -41,9 +47,9 @@ def gameover_22():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if NIVEL22.checkForInput(MOUSE_POS):
-                    from nivel22 import nivel_22
-                    nivel_22
-                    ()
+                    from nivel22_español import nivel_22
+                    pygame.mixer.stop()
+                    nivel_22()
                 elif BOTON_SALIR.checkForInput(MOUSE_POS):
                     from dificil import dificil1
                     dificil1()

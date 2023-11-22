@@ -12,12 +12,12 @@ pygame.display.set_caption("Epidemic fight")
 EUSE = pygame.transform.scale(pygame.image.load("img/recepcion.png"), (1200, 700))
 
 # Cargar imágenes de botones
-IMG_NIVEL1 = pygame.transform.scale(pygame.image.load("img2/botonnivel1.png"), (180, 80))
-IMG_NIVEL1_PRESS = pygame.transform.scale(pygame.image.load("img2/1_2.png"), (182, 82))
-IMG_NIVEL2 = pygame.transform.scale(pygame.image.load("img2/botonnivel2.png"), (180, 80))
-IMG_NIVEL2_PRESS = pygame.transform.scale(pygame.image.load("img2/2_2.png"), (182, 82))
-IMG_NIVEL3 = pygame.transform.scale(pygame.image.load("img2/botonnivel3.png"), (180, 80))
-IMG_NIVEL3_PRESS = pygame.transform.scale(pygame.image.load("img2/3_2.png"), (182, 82))
+IMG_NIVEL1 = pygame.transform.scale(pygame.image.load("img2/btondificil1.png"), (180, 80))
+IMG_NIVEL1_PRESS = pygame.transform.scale(pygame.image.load("img2/dificil (1).png"), (182, 82))
+IMG_NIVEL2 = pygame.transform.scale(pygame.image.load("img2/btondificil2.png"), (180, 80))
+IMG_NIVEL2_PRESS = pygame.transform.scale(pygame.image.load("img2/dificil (2).png"), (182, 82))
+IMG_NIVEL3 = pygame.transform.scale(pygame.image.load("img2/btondificil3.png"), (180, 80))
+IMG_NIVEL3_PRESS = pygame.transform.scale(pygame.image.load("img2/dificil (3).png"), (182, 82))
 IMG_CONTROLES1 = pygame.transform.scale(pygame.image.load("img2/btncontrol.png"), (100, 80))
 IMG_CONTROLES1_PRESS = pygame.transform.scale(pygame.image.load("img2/btncontrol_2.png"), (102, 82))
 IMG_SALIR = pygame.transform.scale(pygame.image.load("img2/btonrojo.png"), (100, 80))
@@ -59,14 +59,14 @@ class Button:
     def check_for_input(self, pos):
         return self.rect.collidepoint(pos)
 
-def facil1():
+def dificil1():
     global posicion_fondo, direccion, volumen
 
     BOTON_SALIR = Button(IMG_SALIR, IMG_SALIR_PRESS, 20, 20)
-    CONTROLES1 = Button(IMG_CONTROLES1, IMG_CONTROLES1_PRESS, 880, 580)
-    NIVEL1 = Button(IMG_NIVEL1, IMG_NIVEL1_PRESS, 400, 250)
-    NIVEL2 = Button(IMG_NIVEL2, IMG_NIVEL2_PRESS, 400, 350)
-    NIVEL3 = Button(IMG_NIVEL3, IMG_NIVEL3_PRESS, 400, 450)
+    CONTROLES2 = Button(IMG_CONTROLES1, IMG_CONTROLES1_PRESS, 880, 580)
+    NIVEL11 = Button(IMG_NIVEL1, IMG_NIVEL1_PRESS, 400, 250)
+    NIVEL22 = Button(IMG_NIVEL2, IMG_NIVEL2_PRESS, 400, 350)
+    NIVEL33 = Button(IMG_NIVEL3, IMG_NIVEL3_PRESS, 400, 450)
 
     while True:
         MOUSE_POS = pygame.mouse.get_pos()
@@ -80,10 +80,10 @@ def facil1():
         
         PANTALLA.blit(EUSE, (posicion_fondo, 0))
         BOTON_SALIR.update(PANTALLA)
-        CONTROLES1.update(PANTALLA)
-        NIVEL1.update(PANTALLA)
-        NIVEL2.update(PANTALLA)
-        NIVEL3.update(PANTALLA)
+        CONTROLES2.update(PANTALLA)
+        NIVEL11.update(PANTALLA)
+        NIVEL22.update(PANTALLA)
+        NIVEL33.update(PANTALLA)
         
         TEXTO_MENU = obtener_fuente(60).render("Epidemic fight", True, "#00000000")
         RECTANGULO_TEXTO_MENU = TEXTO_MENU.get_rect(center=(500, 60))
@@ -108,20 +108,21 @@ def facil1():
                     pygame.mixer.music.set_volume(volumen)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if NIVEL1.check_for_input(MOUSE_POS):
-                    from nivel1_español import nivel_1
-                    nivel_1()
-                elif NIVEL2.check_for_input(MOUSE_POS):
-                    from nivel2_español import nivel_2
-                    nivel_2()
-                elif NIVEL3.check_for_input(MOUSE_POS):
-                    from nivel3_español import nivel_3
-                    nivel_3()
-                elif CONTROLES1.check_for_input(MOUSE_POS):
-                    from controles1 import controles_1
-                    controles_1()
+                if NIVEL11.check_for_input(MOUSE_POS):
+                    from nivel11_español import nivel_11
+                    nivel_11()
+                elif NIVEL22.check_for_input(MOUSE_POS):
+                    from nivel22_español import nivel22
+                    nivel22()
+                elif NIVEL33.check_for_input(MOUSE_POS):
+                    from nivel33_español import nivel33_español
+                    nivel33_español()
+                elif CONTROLES2.check_for_input(MOUSE_POS):
+                    from controles2 import controles_2
+                    controles_2()
                 elif BOTON_SALIR.check_for_input(MOUSE_POS):
                     from niveles import niveles1
+
                     niveles1()
                     pygame.quit()
                     sys.exit()
@@ -133,24 +134,24 @@ def facil1():
             BOTON_SALIR.image = IMG_SALIR_PRESS
         else:
             BOTON_SALIR.image = IMG_SALIR
-        if CONTROLES1.check_for_input(MOUSE_POS):
-            CONTROLES1.image = IMG_CONTROLES1_PRESS
+        if CONTROLES2.check_for_input(MOUSE_POS):
+            CONTROLES2.image = IMG_CONTROLES1_PRESS
         else:
-            CONTROLES1.image = IMG_CONTROLES1
+            CONTROLES2.image = IMG_CONTROLES1
 
-        if NIVEL1.check_for_input(MOUSE_POS):
-            NIVEL1.image = IMG_NIVEL1_PRESS
+        if NIVEL11.check_for_input(MOUSE_POS):
+            NIVEL11.image = IMG_NIVEL1_PRESS
         else:
-            NIVEL1.image = IMG_NIVEL1
-        if NIVEL2.check_for_input(MOUSE_POS):
-            NIVEL2.image = IMG_NIVEL2_PRESS
+            NIVEL11.image = IMG_NIVEL1
+        if NIVEL22.check_for_input(MOUSE_POS):
+            NIVEL22.image = IMG_NIVEL2_PRESS
         else:
-            NIVEL2.image = IMG_NIVEL2
-        if NIVEL3.check_for_input(MOUSE_POS):
-            NIVEL3.image = IMG_NIVEL3_PRESS
+            NIVEL22.image = IMG_NIVEL2
+        if NIVEL33.check_for_input(MOUSE_POS):
+            NIVEL33.image = IMG_NIVEL3_PRESS
         else:
-            NIVEL3.image = IMG_NIVEL3
+            NIVEL33.image = IMG_NIVEL3
 
         pygame.display.update()
 
-facil1()
+dificil1()

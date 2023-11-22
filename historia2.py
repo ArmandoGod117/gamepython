@@ -1,87 +1,74 @@
+import cv2
 import pygame
 import sys
-from botones import Button
+from botones import Button  # Asegúrate de tener el archivo botones.py en tu directorio
 
-# Inicialización de pygame
-pygame.init()
+# Inicializa la variable global
+window_opened = False
 
-# Creación de la pantalla
-PANTALLA = pygame.display.set_mode((1000, 700))
-pygame.display.set_caption("Epidemic fight")
+def historia2():
+    global window_opened
 
-# Carga de imágenes
-EUSE = pygame.transform.scale(pygame.image.load("img/controles.png"), (1000, 700))
+    # Verifica si la ventana ya se ha abierto antes
+    if window_opened:
+        return False
 
-# Cargar imágenes de botones
-IMG_SALIR = pygame.transform.scale(pygame.image.load("img2/btonrojo.png"), (100, 80))
+    window_opened = True
 
-# Música de fondo y control de volumen
-#pygame.mixer.music.load('musica/nivel1.mp3')
-#volumen = 0.5  
-#pygame.mixer.music.set_volume(volumen)
-#pygame.mixer.music.play(-1)
+    video = cv2.VideoCapture("img/historia2.mp4")
+    success, video_image = video.read()
+    fps = video.get(cv2.CAP_PROP_FPS)
 
-def obtener_fuente(tamaño):
-    return pygame.font.Font("img/Dead Kansas.ttf", tamaño)
+    window_size = (1000, 700)
+    window = pygame.display.set_mode(window_size)
+    clock = pygame.time.Clock()
+    background_color = (0, 0, 255)
 
-def dibujar_barra_volumen(surface, volumen):
-    bar_width = 100
-    bar_height = 20
-    position = (50, 650)
-    inner_width = bar_width * volumen
-    pygame.draw.rect(surface, (255, 255, 255), (position[0], position[1], bar_width, bar_height), 2)
-    pygame.draw.rect(surface, (255, 255, 255), (position[0], position[1], inner_width, bar_height))
-
-def historia_2():
-    global volumen
-
-    while True:
-        MOUSE_POS = pygame.mouse.get_pos()
-
-        # Calculate the position to center the image
-        img_x = (PANTALLA.get_width() - EUSE.get_width()) / 2
-        img_y = (PANTALLA.get_height() - EUSE.get_height()) / 2
-
-        PANTALLA.blit(EUSE, (img_x, img_y))
-
-        TEXTO_MENU = obtener_fuente(60).render("", True, "#00000000")
-        RECTANGULO_TEXTO_MENU = TEXTO_MENU.get_rect(center=(500, 60))
-        PANTALLA.blit(TEXTO_MENU, RECTANGULO_TEXTO_MENU)
-
-        BOTON_SALIR = Button(image=IMG_SALIR, pos=(80, 50))
-
-        for boton in [BOTON_SALIR]:
-            boton.changeColor(MOUSE_POS)
-            boton.update(PANTALLA)
-
+    run = success
+    while run:
+        clock.tick(fps)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                run = False
 
-            # Ajustar el volumen con las teclas de flecha
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    volumen += 0.1
-                    if volumen > 1:
-                        volumen = 1
-                    pygame.mixer.music.set_volume(volumen)
-                elif event.key == pygame.K_DOWN:
-                    volumen -= 0.1
-                    if volumen < 0:
-                        volumen = 0
-                    pygame.mixer.music.set_volume(volumen)
+        success, video_image = video.read()
+        if success:
+            x = (window_size[0] - video_image.shape[1]) // 2
+            y = (window_size[1] - video_image.shape[0]) // 2
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if BOTON_SALIR.checkForInput(MOUSE_POS):
-                    from historia import historia_1
-                    historia_1()
-                    pygame.quit()
-                    sys.exit()
+            window.fill(background_color)
+            video_surf = pygame.image.frombuffer(
+                video_image.tobytes(), video_image.shape[1::-1], "BGR")
+            window.blit(video_surf, (x, y))
+            pygame.display.flip()
+        else:
+            run = False
 
-        # Dibuja la barra de volumen
-        #dibujar_barra_volumen(PANTALLA, volumen)
-                    
-        pygame.display.update()
+    pygame.quit()
+    
+    # Restablece la variable al finalizar
+    window_opened = False
+    
+    # Devolver True si el video se reprodujo completamente, False de lo contrario
+    return not run
 
-historia_2()
+def main():
+    pygame.init()
+
+    # Lógica para la pantalla anterior
+    # ...
+
+    # Llamar a la función que reproduce el video
+    video_reproducido_completamente = historia2()
+
+    # Lógica para volver a la pantalla anterior después de que termina el video
+    if video_reproducido_completamente:
+        # Aquí puedes poner el código para volver a la pantalla anterior
+        from historia import historia_1
+        historia_1()
+
+    pygame.quit()
+    sys.exit()
+
+if __name__ == "__main__":
+    main()

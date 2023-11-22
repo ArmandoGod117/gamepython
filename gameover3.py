@@ -12,6 +12,12 @@ EUSE = pygame.transform.scale(pygame.image.load("img/perdiste.png"), (1000, 700)
 IMG_NIVEL3 = pygame.transform.scale(pygame.image.load("img2/Reiniciar.png"), (100, 80))
 IMG_SALIR = pygame.transform.scale(pygame.image.load("img2/btonsalida3.png"), (100, 80))
 
+#Música de fondo y control de volumen
+pygame.mixer.music.load('musica/musicaperder.mp3')
+volumen = 0.5  
+pygame.mixer.music.set_volume(volumen)
+pygame.mixer.music.play(-1)
+
 def obtener_fuente(tamaño):
     return pygame.font.Font("img/Dead Kansas.ttf", tamaño)
 
@@ -41,7 +47,8 @@ def gameover_3():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if NIVEL3.checkForInput(MOUSE_POS):
-                    from nivel3 import nivel_3
+                    from nivel3_español import nivel_3
+                    pygame.mixer.stop()
                     nivel_3()
                 elif BOTON_SALIR.checkForInput(MOUSE_POS):
                     from facil import facil1

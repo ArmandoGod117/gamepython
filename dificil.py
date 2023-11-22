@@ -26,7 +26,7 @@ desplazamiento = 1
 direccion = 1  # 1 representa hacia la derecha, -1 hacia la izquierda
 
 # Música de fondo y control de volumen
-pygame.mixer.music.load('musica/nivel1.mp3')
+pygame.mixer.music.load('musica/musicafondo.mp3')
 volumen = 0.5  
 pygame.mixer.music.set_volume(volumen)
 pygame.mixer.music.play(-1)
@@ -91,14 +91,14 @@ def dificil1():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if NIVEL11.checkForInput(MOUSE_POS):
-                    from nivel11 import nivel_11
+                    from nivel11_español import nivel_11
                     nivel_11()
                 elif NIVEL22.checkForInput(MOUSE_POS):
-                    from nivel22 import nivel_22
-                    nivel_22()
+                    from nivel22_español import nivel22
+                    nivel22()
                 elif NIVEL33.checkForInput(MOUSE_POS):
-                    from nivel33 import nivel_33
-                    nivel_33()
+                    from nivel33_español import nivel33_español
+                    nivel33_español()
                 elif CONTROLES2.checkForInput(MOUSE_POS):
                     from controles2 import controles_2
                     controles_2()
